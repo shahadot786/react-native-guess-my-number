@@ -1,26 +1,55 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, ImageBackground } from 'react-native';
+import { StyleSheet, ImageBackground, SafeAreaView } from 'react-native';
 import StartGameScreen from './screens/StartGameScreen';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
 import GameScreen from './screens/GameScreen';
+import Colors from './constants/colors';
+import GameOverScreen from './screens/GameOverScreen';
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
 
 export default function App() {
   const [userNumber, setUserNumber] = useState();
+  const [gameIsOver, setGameIsOver] = useState(true);
+
+  const [fontsLoaded] = useFonts({
+    'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
+    'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
 
   function pickedNumberHandler(pickedNumber) {
     setUserNumber(pickedNumber);
+    setGameIsOver(false);
+  }
+  function gameOverHandler() {
+    setGameIsOver(true);
   }
   let screen = <StartGameScreen onPickedNumber={pickedNumberHandler} />;
+
   if (userNumber) {
-    screen = <GameScreen />;
+    screen = (
+      <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />
+    );
+  }
+
+  if (gameIsOver && userNumber) {
+    screen = <GameOverScreen />;
   }
 
   return (
     <>
       <StatusBar style="light" />
       <LinearGradient
-        colors={['#4e0329', '#ddb52f', '#15c55d']}
+        colors={[
+          Colors.primary700,
+          Colors.accentColor500,
+          Colors.activeColor500,
+        ]}
         style={styles.rootScreen}
       >
         <ImageBackground
@@ -29,13 +58,13 @@ export default function App() {
           style={styles.rootScreen}
           imageStyle={styles.backgroundImage}
         >
-          {screen}
+          <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
         </ImageBackground>
       </LinearGradient>
     </>
   );
 }
-
+//safeareaview for notch devices
 const styles = StyleSheet.create({
   rootScreen: {
     flex: 1,
