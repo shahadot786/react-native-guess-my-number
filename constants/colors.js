@@ -7,6 +7,7 @@ const Colors = {
   primary800: '#4e0329',
   accentColor500: '#ddb52f',
   activeColor500: '#15c55d',
+  secondary800: '#AF4E02',
 };
 
 export default Colors;
