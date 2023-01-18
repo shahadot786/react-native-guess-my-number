@@ -2,8 +2,7 @@ import { View, Text, Pressable, StyleSheet } from 'react-native';
 
 //object distraction({children})
 //another option is props(props.children)
-function PrimaryButton({ children }) {
-  function pressedHandler() {}
+function PrimaryButton({ children, onPress }) {
   return (
     <View style={styles.buttonOuterContainer}>
       <Pressable
@@ -12,8 +11,8 @@ function PrimaryButton({ children }) {
             ? [styles.buttonInnerContainer, styles.pressed]
             : styles.buttonInnerContainer
         } //for ios
-        onPress={pressedHandler}
-        android_ripple={{ color: '#640233' }} //only for android
+        onPress={onPress}
+        android_ripple={{ color: '#1b1b1d' }} //only for android
       >
         <Text style={styles.buttonText}>{children}</Text>
       </Pressable>
