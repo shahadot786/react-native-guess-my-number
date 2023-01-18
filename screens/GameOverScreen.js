@@ -3,7 +3,7 @@ import PrimaryButton from '../components/ui/PrimaryButton';
 import Title from '../components/ui/Title';
 import Colors from '../constants/colors';
 
-function GameOverScreen() {
+function GameOverScreen({ roundsNumber, userNumber, onStartNewGame }) {
   return (
     <ImageBackground
       source={require('../assets/images/win-bg.jpg')}
@@ -20,11 +20,11 @@ function GameOverScreen() {
           />
         </View>
         <Text style={styles.summeryText}>
-          Your phone needed <Text style={styles.highlight}>X</Text> rounds to
-          guess the number
-          <Text style={styles.highlight}> Y</Text>.
+          You take <Text style={styles.highlight}>{roundsNumber}</Text>{' '}
+          rounds to guess the number
+          <Text style={styles.highlight}> {userNumber}</Text>.
         </Text>
-        <PrimaryButton>Start a new Game</PrimaryButton>
+        <PrimaryButton onPress={onStartNewGame}>Start a new Game</PrimaryButton>
       </View>
     </ImageBackground>
   );
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     fontFamily: 'open-sans',
     fontSize: 24,
     textAlign: 'center',
-    marginBottom: 24
+    marginBottom: 24,
   },
   highlight: {
     fontFamily: 'open-sans-bold',
