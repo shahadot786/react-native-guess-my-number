@@ -8,6 +8,7 @@ import Title from '../components/ui/Title';
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../constants/colors';
 import GuessLogItem from '../components/game/GuessLogItem';
+import customStyle from '../styles/customStyle';
 
 function generateRandomBetween(min, max, exclude) {
   const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -70,7 +71,7 @@ function GameScreen({ userNumber, onGameOver }) {
       <Title>Opponent's Guess</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card>
-        <InstructionText style={styles.instructionText}>
+        <InstructionText style={[customStyle.green, customStyle['font-size']]}>
           Higher or Lower
         </InstructionText>
         <View style={styles.buttonContainer}>
